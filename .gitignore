@@ -1,0 +1,73 @@
+# ===============================
+# Python
+# ===============================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+
+# ===============================
+# Virtual Environment
+# ===============================
+venv/
+.env/
+.env.*
+
+# ===============================
+# Pytest / Coverage
+# ===============================
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+tests/reports/
+
+# ===============================
+# Logs
+# ===============================
+*.log
+
+# ===============================
+# Streamlit
+# ===============================
+.streamlit/
+.streamlit/secrets.toml
+
+# ===============================
+# Ollama / LLM cache (if any)
+# ===============================
+ollama/
+*.gguf
+
+# ===============================
+# OS-specific
+# ===============================
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# ===============================
+# IDEs / Editors
+# ===============================
+.vscode/
+.idea/
+*.iml
+
+# ===============================
+# Temporary / Backup files
+# ===============================
+*.tmp
+*.bak
+*.swp
+
+# ===============================
+# Data artifacts (optional)
+# ===============================
+# Uncomment if properties.json is generated
+# app/data/*.json

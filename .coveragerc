@@ -1,0 +1,8 @@
+[run]
+omit =
+    app/ui/*
+    app/services/chat_rag_service.py
+    app/services/chat_service.py
+    app/services/embedding.py
+    app/vectordb/*
+    app/config/*
