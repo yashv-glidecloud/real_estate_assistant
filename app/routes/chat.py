@@ -34,19 +34,15 @@ def merge_intent(old: dict, new: dict) -> dict:
 def chat(req: ChatRequest):
     session_id = req.session_id or "default"
 
-    # 1️⃣ Extract intent from current message
     new_intent = intent_extractor.extract(req.message)
 
-    # 2️⃣ Merge with memory if exists
     if session_id in INTENT_MEMORY:
         intent = merge_intent(INTENT_MEMORY[session_id], new_intent)
     else:
         intent = new_intent
 
-    # 3️⃣ Save back to memory
     INTENT_MEMORY[session_id] = intent
 
-    # 4️⃣ Search using merged intent
     results = search_service.search(
         city=intent["city"],
         area=intent["area"],

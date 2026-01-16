@@ -33,7 +33,6 @@ class LLMService:
         except Exception as e:
             return f"❌ LLM error: {str(e)}"
 
-    # ✅ ADD THIS METHOD
     def chat(self, messages: List[Dict[str, str]]) -> str:
         """
         Converts chat-style messages into a single prompt

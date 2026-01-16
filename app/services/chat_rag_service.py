@@ -56,7 +56,7 @@ Description: {r.get("description")}
 
         context = "\n".join(context_lines)
 
-        # 🧾 PROMPT
+
         prompt = f"""
 User query:
 {query}
@@ -67,7 +67,7 @@ Matching properties:
 Respond ONLY using the above properties.
 """
 
-        # 💬 LLM CALL
+       
         self.memory[session_id].append({
             "role": "user",
             "content": prompt

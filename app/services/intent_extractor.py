@@ -19,9 +19,6 @@ class IntentExtractor:
     def __init__(self):
         self.llm = LLMService()
 
-    # ------------------------------------------------------------------
-    # 1️⃣ REGEX SIGNAL EXTRACTION (DETERMINISTIC, 100% RELIABLE)
-    # ------------------------------------------------------------------
     def _extract_signals(self, text: str) -> Dict[str, Any]:
         text_lower = text.lower()
 
@@ -31,12 +28,11 @@ class IntentExtractor:
             "balcony": None,
         }
 
-        # ---- BHK ----
         bhk_match = re.search(r"(\d+)\s*bhk", text_lower)
         if bhk_match:
             signals["bhk"] = int(bhk_match.group(1))
 
-        # ---- PRICE ----
+
         price_match = re.search(
             r"under\s*(\d+(?:\.\d+)?)\s*(cr|crore|lakhs|lacs|lac|l)",
             text_lower
@@ -50,15 +46,11 @@ class IntentExtractor:
             else:
                 signals["max_price_lakhs"] = value
 
-        # ---- BALCONY ----
         if "balcony" in text_lower:
             signals["balcony"] = True
 
         return signals
 
-    # ------------------------------------------------------------------
-    # 2️⃣ SAFE JSON EXTRACTION FROM LLM
-    # ------------------------------------------------------------------
     def _extract_json_block(self, text: str) -> Optional[str]:
         start = text.find("{")
         end = text.rfind("}")
@@ -66,9 +58,7 @@ class IntentExtractor:
             return None
         return text[start:end + 1]
 
-    # ------------------------------------------------------------------
-    # 3️⃣ LLM EXTRACTION (ONLY CITY & AREA)
-    # ------------------------------------------------------------------
+
     def _extract_city_area(self, text: str) -> Dict[str, Any]:
         system_prompt = """
 You are a strict JSON extraction engine.
@@ -108,7 +98,6 @@ JSON schema:
         city = data.get("city")
         area = data.get("area")
 
-        # ---- NORMALIZE "null" STRINGS ----
         if city in ("null", "", None):
             city = None
         if area in ("null", "", None):
@@ -116,9 +105,6 @@ JSON schema:
 
         return {"city": city, "area": area}
 
-    # ------------------------------------------------------------------
-    # 4️⃣ FINAL MERGE (REGEX > LLM > DEFAULT)
-    # ------------------------------------------------------------------
     def extract(self, text: str) -> Dict[str, Any]:
         regex_signals = self._extract_signals(text)
         llm_location = self._extract_city_area(text)

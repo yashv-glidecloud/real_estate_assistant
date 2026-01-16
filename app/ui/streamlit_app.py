@@ -12,9 +12,6 @@ st.set_page_config(
 st.title("🏠 Real Estate Assistant")
 st.caption("Type what you're looking for in natural language")
 
-# -------------------------------------------------
-# FORM (auto-clears input after submit)
-# -------------------------------------------------
 with st.form(key="search_form", clear_on_submit=True):
     user_message = st.text_input(
         "What kind of property are you looking for?",
@@ -23,9 +20,7 @@ with st.form(key="search_form", clear_on_submit=True):
 
     search_clicked = st.form_submit_button("Search")
 
-# -------------------------------------------------
-# API Call
-# -------------------------------------------------
+
 if search_clicked and user_message.strip():
     with st.spinner("Searching properties..."):
         try:
@@ -40,17 +35,17 @@ if search_clicked and user_message.strip():
             else:
                 data = response.json()
 
-                # ---- Answer ----
+            
                 st.subheader("Assistant")
                 st.write(data.get("answer", ""))
 
-                # ---- Filters Used ----
+               
                 with st.expander("🔍 Filters understood by the system"):
                     st.json(data.get("filters_used", {}))
 
                 results = data.get("results", [])
 
-                # ---- Results ----
+                
                 st.subheader("🏘️ Properties")
 
                 if not results:
