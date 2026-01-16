@@ -73,7 +73,7 @@ ollama serve
 
 ### 2. Clone the Repository
 
-git clone <your-repository-url>
+git clone https://github.com/yashv-glidecloud/real_estate_assistant.git
 cd real_estate_assistant
 
 ---
